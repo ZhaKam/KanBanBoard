@@ -8,15 +8,12 @@
         <input type="text" name="" id="" />
       </div>
       <div class="row3">
-         <button class="btn">Search</button>
+        <button class="btn">Search</button>
       </div>
     </div>
-    <div class="container">
-      <button @click="fetchBooks" class="btn">fetch</button>
-    </div>
-
     <div class="footer">
-      <book-list :cards="cards" />
+      <book-list :cards="cards" v-if="!isCardsLoading" />
+      <div v-else style="margin-left: 20px; font-size:25px;">Loading...</div>
     </div>
   </div>
 </template>
@@ -28,6 +25,7 @@ export default {
   data() {
     return {
       cards: [],
+      isCardsLoading: false,
     };
   },
   components: {
@@ -36,15 +34,22 @@ export default {
   methods: {
     async fetchBooks() {
       try {
-        const response = await axios.get(
-          "https://www.googleapis.com/books/v1/volumes?q=vue&key=AIzaSyBcxAxLFoOpZur2oazoRHPwcUtyU1xjl90"
-        );
-        console.log(response);
-        this.cards = response.data.items;
+        this.isCardsLoading = true;
+        setTimeout(async () => {
+          const response = await axios.get(
+            "https://www.googleapis.com/books/v1/volumes?q=vue&key=AIzaSyBcxAxLFoOpZur2oazoRHPwcUtyU1xjl90"
+          );
+          console.log(response);
+          this.cards = response.data.items;
+          this.isCardsLoading = false;
+        }, 1000);
       } catch (e) {
         alert("Error");
       }
     },
+  },
+  mounted() {
+    this.fetchBooks();
   },
 };
 </script>
@@ -89,10 +94,6 @@ body {
   text-shadow: 1px 1px 1px #ffab91, 2px 2px 1px #ffab91;
 }
 
-.container {
-  margin-left: 25px;
-  margin-bottom: 20px;
-}
 .row1 {
   position: absolute;
   top: 30%;
