@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Starter Template · Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
+    <style>
+        body {
+            padding-top: 60px;
+        }
+
+        .board .column {
+            width: 250px;
+            display: inline-block;
+            background-color: #eee;
+            padding: 7px;
+            border: 1px solid #AAA;
+            border-radius: 3px;
+            float: left;
+            margin-right: 7px;
+        }
+
+        .board .column .column-header {
+            margin-bottom: 5px;
+        }
+
+        .board .column .column-header button.dropdown-toggle {
+            border: none;
+        }
+
+        .board .column .column-header input {
+            background: transparent;
+            border: none;
+        }
+
+        .board .column .column-header input:focus {
+            background: #FFF;
+        }
+
+        .card {
+            margin-bottom: 5px;
+        }
+
+        .card-body {
+            padding: 3px 0.7rem;
+            font-size: 0.7rem;
+        }
+
+        .card-footer {
+            background: inherit;
+            border-top: none;
+        }
+
+        .card h5 {
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+
+        .card h5 a {
+            color: inherit;
+            width: 100%;
+        }
+
+        .card-footer {
+            padding: 2px 0.7rem;
+            font-size: 0.7rem;
+        }
+
+        .card-footer .users {
+            float: right;
+        }
+
+        .card-footer .users img {
+            border-radius: 50%;
+            width: 18px;
+        }
+
+        .card-create {
+            padding: 5px;
+        }
+
+        .card-create .card-title {
+            margin-bottom: 5px;
+            border: none;
+            background: transparent;
+            resize: none;
+        }
+
+        .card-create .card-title:focus {
+            box-shadow: none;
+            border: none;
+            -webkit-appearance: none;
+        }
+
+        .card-labels {
+            padding: 4px 0.7rem 0;
+        }
+
+        .card-labels div.label {
+            width: 30px;
+            height: 5px;
+            display: inline-block;
+            float: left;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+        .label.label-red {
+            background-color: red;
+        }
+
+        .label.label-green {
+            background-color: green;
+        }
+
+        .user-edit-modal .card-user img {
+            height: 19px;
+            border-radius: 50%;
+        }
+
+        .checklist-table {
+            width: 100%;
+        }
+
+        .checklist-table tr td.checkbox {
+            width: 25px;
+        }
+
+        .checklist-container {
+            border-bottom: 1px solid #dadada;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+        }
+
+        input.text-like {
+            width: 100%;
+            border: none;
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Kanban board</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Boards</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" href="#">Vue demo</a>
+                    <a class="dropdown-item" href="#">Another</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+        </ul>
+
+        <div class="form-inline my-2 my-lg-0">
+            <ul class="navbar-nav mr-3">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Users</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Ivan Ivanov</a>
+                        <a class="dropdown-item" href="#">Pyotr Petrov</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">
+                            <button type="submit" class="btn btn-info btn-sm btn-block">Add user</button>
+                        </a>
+
+                        <form class="px-4 py-3">
+                            <div class="form-group">
+                                <label for="exampleDropdownFormName">Name</label>
+                                <input type="email" class="form-control" id="exampleDropdownFormName" placeholder="Ivan Ivanov">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleDropdownFormAvatar">Avatar</label>
+
+                                <input type="file" onchange="readImage(this);" class="form-control" id="exampleDropdownFormAvatar" style="width: 100%;">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleDropdownFormPassword1">Password</label>
+                                <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-sm btn-block mt-2">Add user</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </div>
+    </div>
+</nav>
+
+<main role="main" class="container-fluid">
+    <div id="app">
+        <div class="board">
+
+            <div class="column">
+                <div class="column-header">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" value="TODO">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                <div role="separator" class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Separated link</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-labels">
+                        <div class="label btn-danger"></div>
+                        <div class="label btn-warning"></div>
+                        <div class="label btn-primary"></div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="#" onclick="$('#exampleModalCenter').modal(); return false;">Card title that wraps to a new line</a>
+                        </h5>
+                        <p class="card-text">
+                            This is a longer card with supporting text below as a natural...
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        2 days ago
+
+                        <div class="users">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAIAAAC0Ujn1AAAIQ0lEQVRIxyXQ2Y4cVxkA4P/8Z6m115mezeOZ2NkcFMeJISIoJEAQN0jhkjfgKZB4GC5BiAuWCxQkIiQQJqsdZ8bxMhnP0t3T3VXVtZ86Gxd8j/CRw41t5BAPwg/ff1suLq9vCc75ydnlLMk3Jptbm6NkmV3MEqWQUtLrixf2967tbPf7I+H7SVGeTufT1fpy0czTcl1Xo82JM0opaYxlP/3FL4eB77H2oN/xId8aY9PKuq6kaq2s6zVubPTiwCuLejzaGo0H48lw1B9qC9Y6D/l4MFxXDXWFz3nHfNVIygGAOOfYr379G1PW1cVDO723vznwAZJk4Xs+Mmwq5XueJ/DlvcOtrb3heMPzfEd009k0Keqq6VRHCW70e+uh1NBopaVxwJBSVAZYkWW2U9wPkIvdgx2f+5v7Wzdu3Xr5dtpVtW7buir2Dw/HuzsiEK5TZZItlwkSwygS57TS4CDiKKilCGgBkatOgXXMGh0Nhk27cloHYRDEIfANoMEEKDir66zN1xQJ94Q1uq2Ltika2XSyAEet1lYrAuAzxgkwBsw6gbi/u3e1vGJRQDkaFwSSM4DOGkFQAWWOoTMEozgWzDaVVdLUte7armuUbACsI8Q5Y7RiQHxf9MOwqGTr5F48fnN3/FRXjDtj2rU2LUHf1rVBRN1Rq4AJAEQLTrZGKdsp0ymKlACxzlKKxljPo0yibrXPRT8K0jwvGrMV0uLZ8Rgc0xAVVcawT8PdPLmaeMLpzhrpuEeYr5XRbYuMOsqQCwKEMiG4QORaGM78uoNG5kApF4ILP+ZViGo4HLRlxSpZxP2e8IKqWWTl801rCFgLjlBBOmuURqSUC3SacFLWbV1USpkw7iGA0TlDBItWWUoZEjqIw6rIAuGJns9UK1eNsmTdp36thaPEAUdKwVmCzlmNndZ1a41qynK1WMmmY8xXnVJSpmnW1Y3VnbXEpzxg3FgfXVM1LYljFvVGSmkLrkhyQfpEeIwy6ExbVFblXd2qspZVzTmfLufT2Vwb0kqzTOa+79fa5bl06HEvREH7UeTCoI8am6ZShFEEL/RabWAwYYEsi6vhkAGALpvZyalRBhGtNk1Tf/Pk8eV0mecyKYpKKa8XedxjVAS90At9hzAY9sEBaZueHxXpmiHRWZaIKA77fVIOVtmJZ7o8yT/7579W01kQ+J4nev1+ua7Oz+aXyzRZtsrz4tEustAPCBcwHA9E6LUdeJRa4xwDS3AtFTPGhkHEKbdgnQibNTk5fnR2cvLw4dfHx3NjbU/gex/cffvdH9RAS3fCQ9eP+ls7Y8sMo37gx5YRC2CtrFVHKKOaMEI6Z5lzKAR3Vss6R63G/tiy04vnszjY/eGP3yjyJe2KW2+9cXDnrVYi9/xABNv725Nru0IIQXGd5mez5fQqsaZ21jgg2iptyHSVMqlMWbfotGor1XUeh7dvv35482Zb6qvLK1XWk8Otzes7NBzEvd7e9njci/dfuxns7RDLdZZareNcGKO0Ms46Aop4wadHJwupGQAEQaBlI3pDIJTUWsE6nIyCiTc4OETOCSqraoeEBz6lPM/LpihDpY22qm1VK+uibPLSaOMAkRAFKClz4BhDMKphnIVBz1ogkmVpEvo7Nu6BiJxRcnHOkGDgC+6NJ9vDOHr64GG6Wm5fu94UxdV8MZvNy0YSYynzrCVa6yBCUTlGAQhBP/AcGEJhVdZcd3sHDHRDjJWX0zKZj164gUQDIVXZnJ+cHT04xi/N7bvfEZ43XyTpKpOd1sQhoHWolLO+iq7/PySMlFbWdNyjHfHWMnRSWVmYpju994lCbOs6W2bffvP8y/tHi8Xa64929jc/++qoF4ddZ6rGABXOamOls9xYl54vn6dnTASRBQvONXnqb04YjxqI6wqwTopF+vjrRySKHOVPjp8dHT1LGjV55aVoMIwiAU7nZcaIYwGVrdK6c9oaYzupPCpM4zFwloDTSoW9mCJHcA0Ri5b6+fr82+ffzufvfvjzN3703it37946enry/GK2StJ1O7sssiTRqrhxY7K3s1k+X3aVBAatUlKbsizeen+Pte0agCKi8EOljVUt9YM17Vkr0rLQjE1nF/f/fS9Erso8diYubZvri1lSOdnvx9aSoizaVsrWONZpglmWHLwWHH5/yKRsgiD2PGEdsaCdk14U62i/TLdGOxuvs1dV12Irbaswd+Ngq39tGOJVrpUaCF9YBHW1KoqmMwS1k2WtYajGr8d//t0jFoZ9wX1rFQEHxoowko3UBFXvJQjOhoPO4+Tg5gQ63i7lcppe5Fdn60tNO6t061QHULWdo4QAkcplkE9ejT/6y9np5w4558Y4Kdu6KDnnFAU6aPNEIt+682IGyf0Hx6fnp5LUiU7vP/viyfRp0maA1hc8CGIgjKIQQgB3yzzdvBN9cX9x/hUEUcCcA4LEauv5HhIwRmunKQ9G8WWd/yGVn4STV4EjYXRyffLB3s+6Wq2zfL5Mp0mR5JVsFEGO0D5+dDa6u/nsonn6meTUV1ozArarW98LHKK1Bq0+ffxg1Js6+/E3n/xpmTTbo1gEt4QvQCMx2vOZDVnlk4iRVNuqbaRqL5Or/e9uz5W+/3GqGkJQAxK2Xq7iwZCKAHT17Ksv//bXP752Kz/YCr89+ofSzcvfu1YukyRfgY5j0cuSNFssVml2lRRZ2czSfFWWJMIXfzKc5fLe76dNBpQjRSSUsng0KrPs6POPZudPnhx/6nnzN+/sOT3bubF3+513yqL67d//IydVcLN+evQ4zcvpbDGdXpWdNmCKsvE2B9fubv33i4t7H6ek8zkzQBgAEEL+B88jcCh8nT1JAAAAQXRFWHRjb21tZW50AENSRUFUT1I6IGdkLWpwZWcgdjEuMCAodXNpbmcgSUpHIEpQRUcgdjYyKSwgcXVhbGl0eSA9IDkwCnd1XskAAAAPdEVYdEpQRUctUXVhbGl0eQA5MDBR7JEAAAARdEVYdEpQRUctQ29sb3JzcGFjZQAygQ0hJAAAABh0RVh0SlBFRy1Db2xvcnNwYWNlLU5hbWUAUkdCz/FA7gAAACF0RVh0SlBFRy1TYW1wbGluZy1mYWN0b3JzADJ4MiwxeDEsMXgx5VHbuAAAAABJRU5ErkJggg=="/>
+                            <img src="data:image/png;base64,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"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-create">
+                    <textarea class="card-title" placeholder="Enter card`s title"></textarea>
+
+                    <input type="submit" class="btn btn-primary btn-block" value="Create"/>
+                </div>
+
+                <div class="column-footer">
+                    <input type="button" class="btn btn-secondary btn-sm" value="Add card"/>
+                </div>
+            </div>
+
+            <div class="column">
+
+
+                <div class="column-header">
+                    <input value="WIP"/>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title that wraps to a new line</h5>
+                        <p class="card-text">
+                            This is a longer card with supporting text below as a natural...
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title that wraps to a new line</h5>
+                        <p class="card-text">
+                            This is a longer card with supporting text below as a natural...
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title that wraps to a new line</h5>
+                        <p class="card-text">
+                            This is a longer card with supporting text below as a natural...
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title that wraps to a new line</h5>
+                        <p class="card-text">
+                            This is a longer card with supporting text below as a natural...
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <input type="button" value="Create column" class="btn btn-block btn-sm btn-primary"/>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content user-edit-modal">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <a href="#" class="btn btn-outline-danger btn-sm float-right">Delete</a>
+                        #1 Created <strong>2019-07-06</strong>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Card title" value="Card title that wraps to a new line">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5">This is a longer card with supporting text below as a natural...</textarea>
+                        </div>
+
+                        <div class="checklist-container">
+                            <a href="#" class="float-right">&xoplus; Add</a>
+                            <h5>Checklist</h5>
+                            <table class="checklist-table">
+                                <tr>
+                                    <td class="checkbox"><input type="checkbox"></td>
+                                    <td><input class="text-like" placeholder="Task description"></td>
+                                </tr>
+                                <tr>
+                                    <td class="checkbox"><input type="checkbox"></td>
+                                    <td><input class="text-like" placeholder="Task description"></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Add user
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">
+                                        User 1
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        User 2
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" class="btn btn-info card-user">
+                                    <img src="data:image/png;base64,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"/>
+                                    User 1
+                                </button>
+                                <button type="button" class="btn btn-info">
+                                    X
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="btn-group" role="group" aria-label="Basic example" style="width: 100%;">
+                            <button type="button" class="btn btn-sm btn-primary">Primary</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Secondary</button>
+                            <button type="button" class="btn btn-sm btn-outline-success">Success</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger">Danger</button>
+                            <button type="button" class="btn btn-sm btn-outline-warning">Warning</button>
+                            <button type="button" class="btn btn-sm btn-outline-info">Info</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script>
+  function readImage(node, callback = (result) => console.log(result)) {
+    const reader = new FileReader();
+
+    reader.onloadend = function () {
+      callback(reader.result);
+    };
+
+    const file = node.files[0];
+
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      callback(null);
+    }
+  }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
