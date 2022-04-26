@@ -5,15 +5,15 @@
         <h1 class="logo">Vue Book Catalog</h1>
       </div>
       <div class="row2">
-        <input type="text" name="" id="" />
+        <input type="text" v-model="searchQuery" />
       </div>
       <div class="row3">
-        <button class="btn">Search</button>
+        <book-button class="btn">Search</book-button>
       </div>
     </div>
     <div class="footer">
       <book-list :cards="cards" v-if="!isCardsLoading" />
-      <div v-else style="margin-left: 20px; font-size:25px;">Loading...</div>
+      <div v-else style="margin-left: 20px; font-size: 25px">Loading...</div>
     </div>
   </div>
 </template>
@@ -21,6 +21,7 @@
 <script>
 import axios from "axios";
 import BookList from "./components/BookList.vue";
+import BookButton from './UI/BookButton.vue';
 export default {
   data() {
     return {
@@ -30,6 +31,7 @@ export default {
   },
   components: {
     BookList,
+    BookButton,
   },
   methods: {
     async fetchBooks() {
@@ -51,6 +53,7 @@ export default {
   mounted() {
     this.fetchBooks();
   },
+
 };
 </script>
 
@@ -123,34 +126,5 @@ body {
   margin-right: -50%;
   transform: translate(-50%, -50%);
 }
-.btn {
-  font-size: 16px;
-  letter-spacing: 2px;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: #003049;
-  font-weight: bold;
-  cursor: pointer;
-  border: 3px solid;
-  padding: 0.25em 0.5em;
-  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
-    5px 5px 0px 0px;
-  position: relative;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  margin-left: 10px;
-}
 
-.btn:active {
-  box-shadow: 0px 0px 0px 0px;
-  top: 5px;
-  left: 5px;
-}
-
-@media (min-width: 768px) {
-  .btn {
-    padding: 0.25em 0.75em;
-  }
-}
 </style>
