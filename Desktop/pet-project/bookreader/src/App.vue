@@ -5,7 +5,13 @@
         <h1 class="logo">Vue Book Catalog</h1>
       </div>
       <div class="row2">
-        <input type="text" v-model="searchQuery" />
+        <book-select
+          v-model="selectedSort"
+          :options="sortOptions"
+          class="app_select"
+        />
+
+        <input type="text" />
       </div>
       <div class="row3">
         <book-button class="btn">Search</book-button>
@@ -21,17 +27,29 @@
 <script>
 import axios from "axios";
 import BookList from "./components/BookList.vue";
-import BookButton from './UI/BookButton.vue';
+import BookButton from "./UI/BookButton.vue";
+import BookSelect from "./UI/BookSelect.vue";
 export default {
   data() {
     return {
       cards: [],
       isCardsLoading: false,
+      selectedSort: "",
+      sortOptions: [
+        { value: "title", name: "by name" },
+        { value: "authors", name: "by author" },
+        { value: "description", name: "according to the description" },
+        { value: "language", name: "by language" },
+        { value: "publisher", name: "by publisher" },
+        { value: "publishedDate", name: "by published Date" },
+        { value: "PageCount", name: "by page Count" },
+      ],
     };
   },
   components: {
     BookList,
     BookButton,
+    BookSelect,
   },
   methods: {
     async fetchBooks() {
@@ -53,7 +71,6 @@ export default {
   mounted() {
     this.fetchBooks();
   },
-
 };
 </script>
 
@@ -113,7 +130,7 @@ body {
 }
 
 .row2 input {
-  width: 500px;
+  width: 600px;
   height: 30px;
   background-color: transparent;
   border: none;
@@ -127,4 +144,17 @@ body {
   transform: translate(-50%, -50%);
 }
 
+.app_select {
+  position: absolute;
+  margin-left: -50%;
+  display:block;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: 1px solid var(--first-color);
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: inherit;
+  font-size: 1.5rem;
+  color: var(--first-color);
+}
 </style>

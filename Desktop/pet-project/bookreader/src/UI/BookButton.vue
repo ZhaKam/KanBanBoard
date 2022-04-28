@@ -27,7 +27,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  margin-left: 10px;
+  margin-left: 30px;
 }
 
 .btn:active {
